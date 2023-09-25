@@ -1,0 +1,90 @@
+
+.login {
+  height: 100vh;
+  background-image: url("https://i.postimg.cc/FR6nHhZN/logo-final-draft.pngg");
+  display: flex;
+  align-items: top;
+  justify-content: top right;
+
+  .card {
+    width: 70%;
+    display: flex;
+    background-color: transparent;
+    border-radius: 10px;
+    max-height: 600px;
+    overflow: hidden;
+    position: absolute;
+    top: 40;
+    right: 0;
+  
+
+    .left {
+      flex: 1;
+      background: transparent;
+      background-size: cover;
+      padding: 50px;
+      // display: flex;
+      flex-direction: column;
+      gap: 50px;
+      color: white;
+      
+
+      h1 {
+        font-size: 100px;
+        line-height: 100px;
+      }
+      
+      p {
+      }
+
+      span {
+        font-size: 14px;
+      }
+      
+      button {
+        width: 50%;
+        padding: 10px;
+        border: none;
+        background-color: #de4949;
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+
+    .right {
+      flex: 1;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      justify-content: center;
+
+      h1 {
+      color: #fcfcfc;
+      }
+      
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        
+        input {
+        border: none;
+        border-bottom: 1px solid lightgray;
+        padding: 20px 10px;
+        }
+        
+        button {
+          width: 50%;
+          padding: 10px;
+          border: none;
+          background-color: #de4949;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
