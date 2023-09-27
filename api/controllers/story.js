@@ -1,6 +1,5 @@
 import { db } from "../connect.js";
 import moment from "moment";
-import jsonErrorHandler from "../jsonErrorHandler.js"
 
 // Middleware to check for authentication
 const authenticate = (req, res, next) => {

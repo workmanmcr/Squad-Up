@@ -1,6 +1,5 @@
 import express from "express";
 import { getStories, addStory, deleteStory } from "../controllers/story.js";
-import jsonErrorHandler from "../jsonErrorHandler.js"
 const router = express.Router();
 
 router.get("/", getStories);
