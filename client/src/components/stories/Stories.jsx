@@ -1,37 +1,48 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import "./stories.scss";
 import { AuthContext } from "../../context/authContext";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 
 const Stories = () => {
   const { currentUser } = useContext(AuthContext);
+  const [newStoryText, setNewStoryText] = useState(""); // State to hold the new story text
 
-  const { isLoading, error, data } = useQuery(["stories"], () =>
+  const { isLoading, error, data, refetch } = useQuery(["stories"], () =>
     makeRequest.get("/stories").then((res) => {
       return res.data;
     })
   );
 
-  //TODO Add story using react-query mutations and use upload function.
+  // Mutation function to create a new story
+  const createStoryMutation = useMutation((newStory) =>
+    makeRequest.post("/stories", { text: newStory })
+  );
+
+  const createStory = async () => {
+    try {
+      await createStoryMutation.mutateAsync(newStoryText);
+      setNewStoryText(""); // Clear the input field
+      refetch(); // Refetch stories to update the list
+    } catch (error) {
+      console.error("Error creating story:", error);
+    }
+  };
 
   return (
     <div className="stories">
-      <div className="story">
-        <img src={"/upload/" + currentUser.profilePic} alt="" />
-        <span>{currentUser.name}</span>
-        <button>+</button>
+      {/* Existing code for displaying stories */}
+      
+      {/* Form for creating a new story */}
+      <div className="create-story">
+        <input
+          type="text"
+          placeholder="Share your story..."
+          value={newStoryText}
+          onChange={(e) => setNewStoryText(e.target.value)}
+        />
+        <button onClick={createStory}>Share</button>
       </div>
-      {error
-        ? "Something went wrong"
-        : isLoading
-        ? "loading"
-        : data.map((story) => (
-            <div className="story" key={story.id}>
-              <img src={story.img} alt="" />
-              <span>{story.name}</span>
-            </div>
-          ))}
     </div>
   );
 };
