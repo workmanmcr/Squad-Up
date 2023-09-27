@@ -11,6 +11,7 @@ export const getPosts = (req, res) => {
     if (err) return res.status(403).json("Token is not valid!");
 
     console.log(userId);
+    console.log(token)
 
     const q =
       userId !== "undefined"
