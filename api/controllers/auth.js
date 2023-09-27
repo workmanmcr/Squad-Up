@@ -1,31 +1,27 @@
 import { db } from "../connect.js";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 
 export const register = (req, res) => {
-  //CHECK USER IF EXISTS
+  const { username, email, password, name } = req.body;
 
-  const q = "SELECT * FROM users WHERE username = ?";
+  // CHECK IF USER EXISTS
+  const checkUserQuery = "SELECT * FROM users WHERE username = ?";
 
-  db.query(q, [req.body.username], (err, data) => {
+  db.query(checkUserQuery, [username], (err, userData) => {
     if (err) return res.status(500).json(err);
-    if (data.length) return res.status(409).json("User already exists!");
-    //CREATE A NEW USER
-    //Hash the password
+    if (userData.length) return res.status(409).json("User already exists!");
+
+    // CREATE A NEW USER
+    // Hash the password
     const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+    const hashedPassword = bcrypt.hashSync(password, salt);
 
-    const q =
-      "INSERT INTO users (`username`,`email`,`password`,`name`) VALUE (?)";
+    const insertUserQuery =
+      "INSERT INTO users (`username`,`email`,`password`,`name`) VALUES (?, ?, ?, ?)";
 
-    const values = [
-      req.body.username,
-      req.body.email,
-      hashedPassword,
-      req.body.name,
-    ];
+    const values = [username, email, hashedPassword, name];
 
-    db.query(q, [values], (err, data) => {
+    db.query(insertUserQuery, values, (err, data) => {
       if (err) return res.status(500).json(err);
       return res.status(200).json("User has been created.");
     });
@@ -33,36 +29,38 @@ export const register = (req, res) => {
 };
 
 export const login = (req, res) => {
-  const q = "SELECT * FROM users WHERE username = ?";
+  const { username, password } = req.body;
 
-  db.query(q, [req.body.username], (err, data) => {
+  // CHECK IF USER EXISTS
+  const checkUserQuery = "SELECT * FROM users WHERE username = ?";
+
+  db.query(checkUserQuery, [username], (err, userData) => {
     if (err) return res.status(500).json(err);
-    if (data.length === 0) return res.status(404).json("User not found!");
+    if (userData.length === 0) return res.status(404).json("User not found!");
 
-    const checkPassword = bcrypt.compareSync(
-      req.body.password,
-      data[0].password
-    );
+    const user = userData[0];
 
-    if (!checkPassword)
+    // CHECK PASSWORD
+    const isPasswordValid = bcrypt.compareSync(password, user.password);
+
+    if (!isPasswordValid)
       return res.status(400).json("Wrong password or username!");
 
-    const token = jwt.sign({ id: data[0].id }, "secretkey");
+    // Create a simplified user object to send in the response
+    const simplifiedUser = {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      name: user.name,
+    };
 
-    const { password, ...others } = data[0];
-
-    res
-      .cookie("accessToken", token, {
-        httpOnly: true,
-      })
-      .status(200)
-      .json(others);
+    return res.status(200).json(simplifiedUser);
   });
 };
 
 export const logout = (req, res) => {
-  res.clearCookie("accessToken",{
-    secure:true,
-    sameSite:"none"
-  }).status(200).json("User has been logged out.")
+  res.clearCookie("accessToken", {
+    secure: true,
+    sameSite: "none",
+  }).status(200).json("User has been logged out.");
 };
