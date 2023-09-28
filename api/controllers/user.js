@@ -1,4 +1,5 @@
 import { db } from "../connect.js";
+import jwt from "jsonwebtoken";
 
 export const getUser = (req, res) => {
   const userId = req.params.userId;
@@ -12,30 +13,30 @@ export const getUser = (req, res) => {
 };
 
 export const updateUser = (req, res) => {
-  const userId = req.params.userId;
-  const authenticatedUserId = req.user.id;
+  const token = req.cookies.accessToken;
+  if (!token) return res.status(401).json("Not authenticated!");
 
-  if (userId !== authenticatedUserId) {
-    return res.status(403).json("You can update only your profile.");
-  }
+  jwt.verify(token, "secretkey", (err, userInfo) => {
+    if (err) return res.status(403).json("Token is not valid!");
 
-  const q =
-    "UPDATE users SET `name`=?,`city`=?,`website`=?,`profilePic`=?,`coverPic`=? WHERE id=? ";
+    const q =
+      "UPDATE users SET `name`=?,`city`=?,`website`=?,`profilePic`=?,`coverPic`=? WHERE id=? ";
 
-  db.query(
-    q,
-    [
-      req.body.name,
-      req.body.city,
-      req.body.website,
-      req.body.coverPic,
-      req.body.profilePic,
-      userId,
-    ],
-    (err, data) => {
-      if (err) res.status(500).json(err);
-      if (data.affectedRows > 0) return res.json("Updated!");
-      return res.status(403).json("You can update only your profile.");
-    }
-  );
+    db.query(
+      q,
+      [
+        req.body.name,
+        req.body.city,
+        req.body.website,
+        req.body.coverPic,
+        req.body.profilePic,
+        userInfo.id,
+      ],
+      (err, data) => {
+        if (err) res.status(500).json(err);
+        if (data.affectedRows > 0) return res.json("Updated!");
+        return res.status(403).json("You can update only your post!");
+      }
+    );
+  });
 };

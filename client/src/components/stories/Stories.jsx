@@ -1,29 +1,65 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import "./stories.scss";
 import { AuthContext } from "../../context/authContext";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { makeRequest } from "../../axios";
 
 const Stories = () => {
   const { currentUser } = useContext(AuthContext);
-  const [newStoryText, setNewStoryText] = useState(""); // State to hold the new story text
+  const [newStoryText, setNewStoryText] = useState("");
+  const [stories, setStories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const { isLoading, error, data, refetch } = useQuery(["stories"], () =>
-    makeRequest.get("/stories").then((res) => {
-      return res.data;
-    })
-  );
+  useEffect(() => {
+    const fetchStories = async () => {
+      setIsLoading(true);
+      setError(null);
 
-  // Mutation function to create a new story
-  const createStoryMutation = useMutation((newStory) =>
-    makeRequest.post("/stories", { text: newStory })
-  );
+      try {
+        const response = await fetch("http://localhost:8800/api/stories", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${currentUser.accessToken}`, // Include your authentication token here
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch stories.");
+        }
+
+        const data = await response.json();
+        setStories(data);
+      } catch (error) {
+        setError(error.message || "An error occurred while fetching stories.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchStories();
+  }, [currentUser.accessToken]); // Include currentUser.accessToken in the dependency array
 
   const createStory = async () => {
     try {
-      await createStoryMutation.mutateAsync(newStoryText);
-      setNewStoryText(""); // Clear the input field
-      refetch(); // Refetch stories to update the list
+      const response = await fetch("http://localhost:8800/api/stories", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${currentUser.accessToken}`, // Include your authentication token here
+        },
+        body: JSON.stringify({ text: newStoryText }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create a story.");
+      }
+
+      // Clear the input field
+      setNewStoryText("");
+
+      // Refetch stories to update the list
+      const updatedStories = await response.json();
+      setStories(updatedStories);
     } catch (error) {
       console.error("Error creating story:", error);
     }
@@ -32,7 +68,18 @@ const Stories = () => {
   return (
     <div className="stories">
       {/* Existing code for displaying stories */}
-      
+      {isLoading ? (
+        "Loading..."
+      ) : error ? (
+        <div>Error: {error}</div>
+      ) : (
+        <div>
+          {stories.map((story) => (
+            <div key={story.id}>{story.text}</div>
+          ))}
+        </div>
+      )}
+
       {/* Form for creating a new story */}
       <div className="create-story">
         <input
