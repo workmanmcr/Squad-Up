@@ -17,6 +17,7 @@ const Stories = () => {
       try {
         const response = await fetch("http://localhost:8800/api/stories", {
           method: "GET",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${currentUser.accessToken}`, // Include your authentication token here
@@ -38,30 +39,58 @@ const Stories = () => {
 
     fetchStories();
   }, [currentUser.accessToken]); // Include currentUser.accessToken in the dependency array
+console.log(currentUser.accessToken)
+  // const createStory = async () => {
+  //   try {
+  //     const response = await fetch("http://localhost:8800/api/stories", {
+  //       method: "POST",
+  //       credentials: "include",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${currentUser.accessToken}`, // Include your authentication token here
+  //       },
+  //       body: JSON.stringify({ text: newStoryText }),
+  //     });
 
+  //     if (!response.ok) {
+  //       throw new Error("Failed to create a story.");
+  //     }
+
+  //     // Clear the input field
+  //     setNewStoryText("");
+
+  //     // Refetch stories to update the list
+  //     const updatedStories = await response.json();
+  //     setStories(updatedStories);
+  //   } catch (error) {
+  //     console.error("Error creating story:", error);
+  //   }
+  // };
   const createStory = async () => {
     try {
       const response = await fetch("http://localhost:8800/api/stories", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${currentUser.accessToken}`, // Include your authentication token here
+          Authorization: `Bearer ${currentUser.accessToken}`,
         },
         body: JSON.stringify({ text: newStoryText }),
       });
-
+  
       if (!response.ok) {
-        throw new Error("Failed to create a story.");
+        const responseData = await response.json(); // Read the error response body
+        throw new Error(`Failed to create a story: ${responseData.error}`);
       }
-
+  
       // Clear the input field
       setNewStoryText("");
-
+  
       // Refetch stories to update the list
       const updatedStories = await response.json();
       setStories(updatedStories);
     } catch (error) {
-      console.error("Error creating story:", error);
+      console.error("Error creating story:", error.message);
     }
   };
 
@@ -82,13 +111,13 @@ const Stories = () => {
 
       {/* Form for creating a new story */}
       <div className="create-story">
-        <input
+        {/* <input
           type="text"
           placeholder="Share your story..."
           value={newStoryText}
           onChange={(e) => setNewStoryText(e.target.value)}
         />
-        <button onClick={createStory}>Share</button>
+        <button onClick={createStory}>Share</button> */}
       </div>
     </div>
   );

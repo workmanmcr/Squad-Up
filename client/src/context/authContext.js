@@ -12,7 +12,7 @@ export const AuthContextProvider = ({ children }) => {
     const res = await axios.post("http://localhost:8800/api/auth/login", inputs, {
       withCredentials: true,
     });
-
+      console.log(res.data)
     setCurrentUser(res.data)
   };
 
