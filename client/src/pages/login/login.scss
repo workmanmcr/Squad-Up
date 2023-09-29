@@ -1,86 +1,241 @@
 .login {
   height: 100vh;
-  background-color: rgb(193, 190, 255);
+  background: url("/assets/logo2.0.png");
+  background-size: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
 
   .card {
     width: 50%;
     display: flex;
-    background-color: white;
+    flex-direction: row-reverse;
+    background:transparent;
     border-radius: 10px;
     min-height: 600px;
     overflow: hidden;
+  }
+}
+.left {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .left {
-      flex: 1;
-      background: linear-gradient(rgba(39, 11, 96, 0.5), rgba(39, 11, 96, 0.5)),
-        url("https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600")
-          center;
-      background-size: cover;
-      padding: 50px;
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      color: white;
+button{
+  position: relative;
+  display: inline-block;
+  padding: 30px 50px;
+  margin: 90px 0;
+  color:random($limit: 1);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: 0.05s;
+  overflow: hidden;
+  margin-right: 50px;
 
-      h1 {
-        font-size: 100px;
-        line-height: 100px;
-      }
-      
-      p {
-      }
+  &:hover {
+    background: #1404fc;
+    color: black;
+    box-shadow: 0 0 5px #1404fc, 0 0 25px #1404fc, 0 0 50px #1404fc, 0 0 200px #1404fc;
+  }
 
-      span {
-        font-size: 14px;
-      }
-      
-      button {
-        width: 50%;
-        padding: 10px;
-        border: none;
-        background-color: white;
-        color: rebeccapurple;
-        font-weight: bold;
-        cursor: pointer;
-      }
+  &:nth-child(2) {
+    filter: hue-rotate(270deg);
+  }
+
+  span {
+    position: absolute;
+    display: block;
+
+    &:nth-child(1) {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #1404fc);
+      animation: animate1 1s linear infinite;
     }
 
-    .right {
-      flex: 1;
-      padding: 50px;
-      display: flex;
-      flex-direction: column;
-      gap: 50px;
-      justify-content: center;
-
-      h1 {
-      color: #555;
-      }
-      
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        
-        input {
-        border: none;
-        border-bottom: 1px solid lightgray;
-        padding: 20px 10px;
-        }
-        
-        button {
-          width: 50%;
-          padding: 10px;
-          border: none;
-          background-color: #938eef;
-          color: white;
-          font-weight: bold;
-          cursor: pointer;
-        }
-      }
+    &:nth-child(2) {
+      top: -100%;
+      right: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(180deg, transparent, #1404fc);
+      animation: animate2 1s linear infinite;
+      animation-delay: 1s;
     }
+
+    &:nth-child(3) {
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(270deg, transparent, #1404fc);
+      animation: animate3 1s linear infinite;
+    }
+
+    &:nth-child(4) {
+      bottom: -100%;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(360deg, transparent, #1404fc);
+      animation: animate4 1s linear infinite;
+      animation-delay: 1s;
+    }
+  }
+}
+
+@keyframes animate1 {
+  0% {
+    left: -100%;
+  }
+  50%, 100% {
+    left: 100%;
+  }
+}
+
+@keyframes animate2 {
+  0% {
+    top: -100%;
+  }
+  50%, 100% {
+    top: 100%;
+  }
+}
+
+@keyframes animate3 {
+  0% {
+    right: -100%;
+  }
+  50%, 100% {
+    right: 100%;
+  }
+}
+
+@keyframes animate4 {
+  0% {
+    bottom: -100%;
+  }
+  50%, 100% {
+    bottom: 100%;
+  }
+}
+.right {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  position: relative;
+  display: inline-block;
+  padding: 30px 50px;
+  margin: 90px 0;
+  color: #1404fc;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: 0.05s;
+  overflow: hidden;
+  margin-right: 50px;
+
+  &:hover {
+    background: #1404fc;
+    color: black;
+    box-shadow: 0 0 5px #1404fc, 0 0 25px #1404fc, 0 0 50px #1404fc, 0 0 200px #1404fc;
+  }
+
+  &:nth-child(2) {
+    filter: hue-rotate(270deg);
+  }
+
+  span {
+    position: absolute;
+    display: block;
+
+    &:nth-child(1) {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #1404fc);
+      animation: animate1 1s linear infinite;
+    }
+
+    &:nth-child(2) {
+      top: -100%;
+      right: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(180deg, transparent, #1404fc);
+      animation: animate2 1s linear infinite;
+      animation-delay: 1s;
+    }
+
+    &:nth-child(3) {
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(270deg, transparent, #1404fc);
+      animation: animate3 1s linear infinite;
+    }
+
+    &:nth-child(4) {
+      bottom: -100%;
+      left: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(360deg, transparent, #1404fc);
+      animation: animate4 1s linear infinite;
+      animation-delay: 1s;
+    }
+  }
+}
+
+@keyframes animate1 {
+  0% {
+    left: -100%;
+  }
+  50%, 100% {
+    left: 100%;
+  }
+}
+
+@keyframes animate2 {
+  0% {
+    top: -100%;
+  }
+  50%, 100% {
+    top: 100%;
+  }
+}
+
+@keyframes animate3 {
+  0% {
+    right: -100%;
+  }
+  50%, 100% {
+    right: 100%;
+  }
+}
+
+@keyframes animate4 {
+  0% {
+    bottom: -100%;
+  }
+  50%, 100% {
+    bottom: 100%;
   }
 }
