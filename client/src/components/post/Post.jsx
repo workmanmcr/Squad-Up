@@ -9,7 +9,7 @@ import Comments from "../comments/Comments";
 import { useState } from "react";
 import moment from "moment";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import { makeRequest } from "../../axios";
+import { serverRequest } from "../../axios"; // Use serverRequest instead of makeRequest
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 
@@ -20,7 +20,7 @@ const Post = ({ post }) => {
   const { currentUser } = useContext(AuthContext);
 
   const { isLoading, error, data } = useQuery(["likes", post.id], () =>
-    makeRequest.get("/likes?postId=" + post.id).then((res) => {
+    serverRequest.get("/likes?postId=" + post.id).then((res) => {
       return res.data;
     })
   );
@@ -29,8 +29,8 @@ const Post = ({ post }) => {
 
   const mutation = useMutation(
     (liked) => {
-      if (liked) return makeRequest.delete("/likes?postId=" + post.id);
-      return makeRequest.post("/likes", { postId: post.id });
+      if (liked) return serverRequest.delete("/likes?postId=" + post.id);
+      return serverRequest.post("/likes", { postId: post.id });
     },
     {
       onSuccess: () => {
@@ -41,7 +41,7 @@ const Post = ({ post }) => {
   );
   const deleteMutation = useMutation(
     (postId) => {
-      return makeRequest.delete("/posts/" + postId);
+      return serverRequest.delete("/posts/" + postId);
     },
     {
       onSuccess: () => {

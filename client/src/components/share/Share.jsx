@@ -1,14 +1,15 @@
 import "./share.scss";
 import Image from "../../assets/img.png";
-import Map from "../../assets/map.png";
 import Friend from "../../assets/friend.png";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
+
 const Share = () => {
   const [file, setFile] = useState(null);
   const [desc, setDesc] = useState("");
+  const [taggedUsers, setTaggedUsers] = useState([]);
 
   const upload = async () => {
     try {
@@ -41,9 +42,26 @@ const Share = () => {
     e.preventDefault();
     let imgUrl = "";
     if (file) imgUrl = await upload();
-    mutation.mutate({ desc, img: imgUrl });
+
+    const newPost = {
+      desc,
+      img: imgUrl,
+      taggedUsers: taggedUsers.map(user => user.id),
+    };
+
+    mutation.mutate(newPost);
+
+    // Reset states
     setDesc("");
     setFile(null);
+    setTaggedUsers([]);
+  };
+
+  const handleTagUser = (selectedUser) => {
+    // Check if the user is already tagged
+    if (!taggedUsers.some(user => user.id === selectedUser.id)) {
+      setTaggedUsers(prevUsers => [...prevUsers, selectedUser]);
+    }
   };
 
   return (
@@ -81,16 +99,28 @@ const Share = () => {
               </div>
             </label>
             <div className="item">
-              <img src={Map} alt="" />
-              <span>Add Place</span>
-            </div>
-            <div className="item">
               <img src={Friend} alt="" />
               <span>Tag Friends</span>
+              {/* Display tagged users */}
+              <div className="taggedUsers">
+                {taggedUsers.map(user => (
+                  <span key={user.id} className="taggedUser">{user.name}</span>
+                ))}
+              </div>
+              {/* Placeholder for user search or dropdown */}
+              <input
+                type="text"
+                placeholder="Search users"
+                onChange={(e) => {
+                  // Placeholder for handling user search or dropdown
+                  // For simplicity, you can fetch users from the server and filter based on input
+                  // Set the selected user to taggedUsers using handleTagUser
+                }}
+              />
             </div>
           </div>
           <div className="right">
-            <button onClick={handleClick}>Share</button>
+            <button onClick={handleClick}>SquadUp</button>
           </div>
         </div>
       </div>
