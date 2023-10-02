@@ -22,7 +22,9 @@ const Navbar = () => {
         <Link to="/" style={{ textDecoration: "none" }}>
           <span>Squad Up</span>
         </Link>
-        <HomeOutlinedIcon />
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <HomeOutlinedIcon />
+        </Link>
         {darkMode ? (
           <WbSunnyOutlinedIcon onClick={toggle} />
         ) : (

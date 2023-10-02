@@ -16,7 +16,7 @@ const LeftBar = () => {
               src={"/upload/" + currentUser.profilePic}
               alt=""
             />
-            <span>{currentUser.name}</span>
+            <span className="left">{currentUser.name}</span>
           </div>
         </div>
         <Link to="../pages/gameHome/HomePage">Go to GameList</Link>
