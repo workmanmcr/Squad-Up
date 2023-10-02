@@ -8,11 +8,12 @@ export const DarkModeContextProvider = ({ children }) => {
   );
 
   const toggle = () => {
-    setDarkMode(!darkMode);
+    // Using the functional form of setState to ensure correct toggle
+    setDarkMode(prevDarkMode => !prevDarkMode);
   };
 
   useEffect(() => {
-    localStorage.setItem("darkMode", darkMode);
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
   }, [darkMode]);
 
   return (
