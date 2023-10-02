@@ -13,61 +13,29 @@
     @include mobile{
       display: none;
     }
+h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
 
-    &::-webkit-scrollbar {
-      display: none;
+.favorited-games {
+  display: flex;
+  flex-direction: column;
+
+  .favorited-game {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 75px;
+      height: 100x;
+      object-fit: cover;
     }
 
-    .container {
-      padding: 20px;
-
-      hr {
-        margin: 20px 0px;
-        border: none;
-        height: 0.5px;
-        background-color: themed("border");
-      }
-
-      .menu {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-
-        span {
-          font-size: 12px;
-        }
-
-        .user {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-
-          img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            object-fit: cover;
-          }
-
-          span {
-            font-size: 14px;
-          }
-        }
-
-        .item {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-
-          img {
-            width: 30px;
-          }
-
-          span {
-            font-size: 14px;
-          }
-        }
-      }
+    span {
+      font-size: 14px;
     }
   }
+}
+}
 }

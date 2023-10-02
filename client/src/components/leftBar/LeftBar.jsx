@@ -10,23 +10,33 @@ const LeftBar = () => {
   const { currentUser } = useContext(AuthContext);
   const { favoriteGames } = useFavoriteGames();
   const [favoritedGames, setFavoritedGames] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchFavoritedGames = async () => {
       try {
-        const gamesPromises = favoriteGames.map(async (gameId) => {
-          const response = await axios.get(`https://api.rawg.io/api/games/${gameId}`, {
-            params: {
-              key: API_KEY,
-            },
-          });
-          return response.data;
-        });
+        setLoading(true);
+        setError(null);
 
-        const favoritedGamesData = await Promise.all(gamesPromises);
-        setFavoritedGames(favoritedGamesData);
+        // Fetch details for each favorited game
+        const gamesData = await Promise.all(
+          favoriteGames.slice(0, 5).map(async (gameId) => {
+            const response = await axios.get(`https://api.rawg.io/api/games/${gameId}`, {
+              params: {
+                key: API_KEY,
+              },
+            });
+            return response.data;
+          })
+        );
+
+        setFavoritedGames(gamesData);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching favorited games:", error.message);
+        setError("Error fetching favorited games");
+        setLoading(false);
       }
     };
 
@@ -43,14 +53,21 @@ const LeftBar = () => {
           </div>
         </div>
         <div className="item">
-          <h3>Favorited Games</h3>
-          <ul>
-            {favoritedGames.map((game) => (
-              <li key={game.id}>
-                <Link to={`/games/${game.id}`}>{game.name}</Link>
-              </li>
-            ))}
-          </ul>
+          <h3>Top 5 Favorited Games</h3>
+          {loading && <p>Loading...</p>}
+          {error && <p>Error: {error}</p>}
+          <div className="favorited-games">
+            {!loading &&
+              !error &&
+              favoritedGames.map((game) => (
+                <div key={game.id} className="favorited-game">
+                  <Link to={`/games/${game.id}`}>
+                    <span className="game-name">{game.name}</span>
+                    <img src={game.background_image} alt={game.name} />
+                  </Link>
+                </div>
+              ))}
+          </div>
         </div>
       </div>
       <hr />
