@@ -58,7 +58,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <div className="left">
+      <div className="right">
         <Link to="/" style={{ textDecoration: "none" }}>
           <span>Squad Up</span>
         </Link>
@@ -73,22 +73,10 @@ const Navbar = () => {
         <Link to="/games" style={{ textDecoration: "none" }}>
           <GridViewOutlinedIcon />
         </Link>
-        <div className="search">
-          <SearchOutlinedIcon onClick={handleSearch} />
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
       </div>
       <div className="right">
-        <PersonOutlinedIcon />
-        <EmailOutlinedIcon />
-        <NotificationsOutlinedIcon />
         <div className="user">
-          <img src={"/upload/" + currentUser.profilePic} alt="" />
+          <img src={"/upload/" + currentUser.profilePic} alt="" className="images" />
           <span>{currentUser.name}</span>
         </div>
       </div>

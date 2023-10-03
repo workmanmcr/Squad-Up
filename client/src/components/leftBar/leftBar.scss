@@ -1,6 +1,8 @@
 @import "../../style.scss";
 
 .leftBar {
+  background: url("/assets/right.jpg");
+background-size: 250px, 500px;
   @include themify($themes) {
     flex: 2;
     position: sticky;
@@ -16,6 +18,12 @@
 h3 {
   font-size: 16px;
   margin-bottom: 10px;
+}
+.images{
+  max-height: 100px;
+    max-width: 200px;
+    border-radius: 75px;
+     border-radius: 50%; 
 }
 
 .favorited-games {

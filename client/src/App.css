@@ -1,6 +1,12 @@
 .App {
   text-align: center;
+  background:url("/client/src/assets/logo2.0.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
+
 
 .App-logo {
   height: 40vmin;

@@ -10,6 +10,6 @@ router.get("/find/:userId", getUser);
 router.get("/all", getAllUsers);
 
 // Update a user
-router.put("/", updateUser);
+router.put("/updateUser", updateUser);
 
 export default router;

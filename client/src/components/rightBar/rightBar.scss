@@ -1,101 +1,127 @@
 @import "../../style.scss";
 
-.rightBar {
-  @include themify($themes) {
-    flex: 3;
-    position: sticky;
-    top: 70px;
-    height: calc(100vh - 70px);
-    overflow: scroll;
-    background-color: themed("bgSoft");
 
-    @include mobile{
-      display: none;
-    }
-    @include tablet{
-      display: none;
-    }
+.rightBar{
+background: url("/assets/right.jpg");
+background-size: 330px, 500px;
+.left,
+.right {
+box-sizing: border-box;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.squad{
+  color: lime;
+}
+.images{
+  max-height: 100px;
+    max-width: 200px;
+    border-radius: 75px;
+     border-radius: 50%; 
+}
+.button,
+a {
+position: relative;
+display: inline-block;
+width: 180px;
+padding: 10px 25px;
+margin: 10px 0;
+color: lime;
+text-decoration: none;
+text-transform: uppercase;
+font-weight: bold;
+transition: 2s;
+overflow: hidden;
+margin-right: 50px;
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
+&:hover {
+  background: #1404fc;
+  color: black;
+  box-shadow: 0 0 5px #1404fc, 0 0 25px #1404fc, 0 0 50px #1404fc, 0 0 200px #1404fc;
+}
 
-    .container {
-      padding: 20px;
+&:nth-child(2) {
+  filter: hue-rotate(270deg);
+}
 
-      .item {
-        -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-        -moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-        box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-        padding: 20px;
-        margin-bottom: 20px;
-        background-color: themed("bg");
+span {
+  position: absolute;
+  display: block;
 
-        span {
-          color: gray;
-        }
-
-        .user {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin: 20px 0px;
-
-          .userInfo {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            position: relative;
-
-            img {
-              width: 40px;
-              height: 40px;
-              border-radius: 50%;
-              object-fit: cover;
-            }
-
-            .online {
-              width: 12px;
-              height: 12px;
-              border-radius: 50%;
-              background-color: limegreen;
-              position: absolute;
-              top: 0;
-              left: 30px;
-            }
-
-            p {
-              color: themed("textColorSoft");
-            }
-
-            span {
-              font-weight: 500;
-              color: themed("textColor");
-            }
-          }
-
-          .buttons {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
-            button {
-              border: none;
-              padding: 5px;
-              color: white;
-              cursor: pointer;
-
-              &:first-child {
-                background-color: #5271ff;
-              }
-
-              &:last-child {
-                background-color: #f0544f;
-              }
-            }
-          }
-        }
-      }
-    }
+  &:nth-child(1) {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #1404fc);
+    animation: animate1 4s linear infinite;
   }
+
+  &:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #1404fc);
+    animation: animate2 4s linear infinite;
+    animation-delay: 1s;
+  }
+
+  &:nth-child(3) {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #1404fc);
+    animation: animate3 4s linear infinite;
+  }
+
+  &:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #1404fc);
+    animation: animate4 4s linear infinite;
+    animation-delay: 1s;
+  }
+}
+}
+
+@keyframes animate1 {
+0% {
+  left: -100%;
+}
+50%, 100% {
+  left: 100%;
+}
+}
+
+@keyframes animate2 {
+0% {
+  top: -100%;
+}
+50%, 100% {
+  top: 100%;
+}
+}
+
+@keyframes animate3 {
+0% {
+  right: -100%;
+}
+50%, 100% {
+  right: 100%;
+}
+}
+
+@keyframes animate4 {
+0% {
+  bottom: -100%;
+}
+50%, 100% {
+  bottom: 100%;
+}
+}
 }

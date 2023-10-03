@@ -6,7 +6,9 @@
     -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
     box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
     border-radius: 20px;
-    background-color: themed("bg");
+    background: url("/assets/post.gif");
+    background-size: 775px 450px;
+    background-position: center;
     color: themed("textColor");
     margin-bottom: 20px;
 

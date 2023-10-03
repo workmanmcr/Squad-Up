@@ -11,7 +11,6 @@
     width: 50%;
     display: flex;
     flex-direction: row-reverse;
-    background: transparent;
     border-radius: 10px;
     min-height: 600px;
     overflow: hidden;
@@ -32,13 +31,14 @@
 a {
   position: relative;
   display: inline-block;
-  padding: 30px 50px;
-  margin: 90px 0;
+  width: 180px;
+  padding: 10px 25px;
+  margin: 10px 0;
   color: #1404fc;
   text-decoration: none;
   text-transform: uppercase;
   font-weight: bold;
-  transition: 0.05s;
+  transition: 2s;
   overflow: hidden;
   margin-right: 50px;
 
@@ -62,7 +62,7 @@ a {
       width: 100%;
       height: 2px;
       background: linear-gradient(90deg, transparent, #1404fc);
-      animation: animate1 1s linear infinite;
+      animation: animate1 4s linear infinite;
     }
 
     &:nth-child(2) {
@@ -71,7 +71,7 @@ a {
       width: 2px;
       height: 100%;
       background: linear-gradient(180deg, transparent, #1404fc);
-      animation: animate2 1s linear infinite;
+      animation: animate2 4s linear infinite;
       animation-delay: 1s;
     }
 
@@ -81,7 +81,7 @@ a {
       width: 100%;
       height: 2px;
       background: linear-gradient(270deg, transparent, #1404fc);
-      animation: animate3 1s linear infinite;
+      animation: animate3 4s linear infinite;
     }
 
     &:nth-child(4) {
@@ -90,7 +90,7 @@ a {
       width: 2px;
       height: 100%;
       background: linear-gradient(360deg, transparent, #1404fc);
-      animation: animate4 1s linear infinite;
+      animation: animate4 4s linear infinite;
       animation-delay: 1s;
     }
   }

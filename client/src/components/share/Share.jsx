@@ -1,6 +1,5 @@
 import "./share.scss";
 import Image from "../../assets/img.png";
-import Friend from "../../assets/friend.png";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -69,10 +68,10 @@ const Share = () => {
       <div className="container">
         <div className="top">
           <div className="left">
-            <img src={"/upload/" + currentUser.profilePic} alt="" />
+            <img src={"/upload/" + currentUser.profilePic} alt="" className="images"/>
             <input
               type="text"
-              placeholder={`What's on your mind ${currentUser.name}?`}
+              placeholder={`share with the squad`}
               onChange={(e) => setDesc(e.target.value)}
               value={desc}
             />
@@ -95,32 +94,12 @@ const Share = () => {
             <label htmlFor="file">
               <div className="item">
                 <img src={Image} alt="" />
-                <span>Add Image</span>
+                <span className="button">Add Image</span>
               </div>
             </label>
-            <div className="item">
-              <img src={Friend} alt="" />
-              <span>Tag Friends</span>
-              {/* Display tagged users */}
-              <div className="taggedUsers">
-                {taggedUsers.map(user => (
-                  <span key={user.id} className="taggedUser">{user.name}</span>
-                ))}
-              </div>
-              {/* Placeholder for user search or dropdown */}
-              <input
-                type="text"
-                placeholder="Search users"
-                onChange={(e) => {
-                  // Placeholder for handling user search or dropdown
-                  // For simplicity, you can fetch users from the server and filter based on input
-                  // Set the selected user to taggedUsers using handleTagUser
-                }}
-              />
-            </div>
           </div>
           <div className="right">
-            <button onClick={handleClick}>SquadUp</button>
+            <button onClick={handleClick}>Post</button>
           </div>
         </div>
       </div>

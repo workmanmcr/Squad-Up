@@ -13,6 +13,8 @@ import { serverRequest } from "../../axios"; // Use serverRequest instead of mak
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 
+// ... (existing imports)
+
 const Post = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -64,7 +66,7 @@ const Post = ({ post }) => {
       <div className="container">
         <div className="user">
           <div className="userInfo">
-            <img src={"/upload/"+post.profilePic} alt="" />
+            <img src={"/upload/" + post.profilePic} alt="" />
             <div className="details">
               <Link
                 to={`/profile/${post.userId}`}
@@ -83,6 +85,22 @@ const Post = ({ post }) => {
         <div className="content">
           <p>{post.desc}</p>
           <img src={"/upload/" + post.img} alt="" />
+        </div>
+        <div className="taggedUsers">
+          {post.taggedUsers && post.taggedUsers.length > 0 && (
+            <div className="item">
+              <span>Tagged users:</span>
+              {post.taggedUsers.map((taggedUser) => (
+                <Link
+                  key={taggedUser.id}
+                  to={`/profile/${taggedUser.id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <span>{taggedUser.name}</span>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
         <div className="info">
           <div className="item">

@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './rightBar.scss';
-import { serverRequest } from "../../axios";
+import { serverRequest } from '../../axios';
 
 const RightBar = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Call the getAllUsers endpoint
-        const response = await serverRequest.get("/users/all");
+        const response = await serverRequest.get('/users/all');
         setUsers(response.data);
       } catch (error) {
         console.error('Error fetching users:', error.message);
@@ -27,36 +27,73 @@ const RightBar = () => {
 
   const handleFollow = async (userId) => {
     try {
-      // Implement logic to handle the follow action
-      // For example, you can send a request to the server to update the follow status
-      // await serverRequest.post(`/follow/${userId}`);
+      // Send a request to your server to follow the user
+      await serverRequest.post(`/relationship/${userId}`);
+
+      // Update the local state or refetch the data to reflect the follow action
+      const updatedUsers = users.map((user) =>
+        user.id === userId ? { ...user, isFollowed: true } : user
+      );
       console.log(`Following user with ID ${userId}`);
     } catch (error) {
       console.error('Error following user:', error.message);
     }
   };
 
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Filter users based on the search query
+  const filteredUsers = users.filter((user) =>
+    user.username.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="rightBar">
       <div className="container">
+        {/* Search bar */}
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search squad..."
+            value={searchQuery}
+            onChange={handleSearch}
+          />
+        </div>
+
+        {/* Display search results or suggested users */}
         <div className="item">
-          <span>Suggestions For You</span>
+          <div className='squad'><span>{searchQuery ? 'Search Results' : 'Your Squad'}</span>
+          </div>
           {loading && <p>Loading...</p>}
           {error && <p>{error}</p>}
-          {!loading && !error && users.map((user) => (
-            <div className="user" key={user.id}>
-              <div className="userInfo">
-                <Link to={`/profile/${user.id}`}>
-                  <img src={user.profileImageUrl} alt={`Profile of ${user.username}`} />
-                  <span>{user.username}</span>
-                </Link>
-              </div>
-              <div className="buttons">
-                <button onClick={() => handleFollow(user.id)}>follow</button>
-                <button>dismiss</button>
-              </div>
-            </div>
-          ))}
+          {!loading &&
+            !error &&
+            (searchQuery ? (
+              filteredUsers.map((user) => (
+                <div className="user" key={user.id}>
+                  <div className="userInfo">
+                    <Link to={`/profile/${user.id}`}>
+                      <span>{user.username}</span>
+                    </Link>
+                  </div>
+                </div>
+              ))
+            ) : (
+              users.map((user) => (
+                <div className="user" key={user.id}>
+                  
+                    <div className='right'>
+                    <Link to={`/profile/${user.id}`}>
+                      <span>{user.username}</span>
+                      <img src={"/upload/" + user.profilePic} alt="" className='images'/>
+                    </Link>
+                    </div>
+                  </div>
+                
+              ))
+            ))}
         </div>
       </div>
     </div>

@@ -3,8 +3,12 @@
 .home{
   @include themify($themes) {
     padding: 20px 70px;
-    background-color: themed("bgSoft");
+    background:url("/assets/logo2.0.png");
     min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 
     @include mobile {
       padding: 10px;
