@@ -33,15 +33,19 @@ const Login = () => {
       <div className="card">
         <div className="left">
           <h1></h1>
-          <p>
-          </p>
-          <span>Don't you have an account?</span>
+          <div className="p4">
+          <span className="neong">Register</span>
+          </div>
+          <div className="p5">
           <Link to="/register">
-            <button>Register</button>
+            <button className="button">Register</button>
           </Link>
+          </div> 
         </div>
         <div className="right">
-          <h1>Login</h1>
+          <div className="p3">
+          <h1 className="neong">Login</h1>
+          </div>
           <form>
             <input
               type="text"
@@ -56,7 +60,7 @@ const Login = () => {
               onChange={handleChange}
             />
             {err && err}
-            <button onClick={handleLogin}>Login</button>
+            <button className="button" onClick={handleLogin}>Ready Up</button>
           </form>
         </div>
       </div>

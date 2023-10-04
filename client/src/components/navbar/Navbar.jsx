@@ -5,10 +5,6 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useQuery } from "@tanstack/react-query";
 import { API_KEY } from "../../Api_key";
 import axios from "axios";
@@ -52,25 +48,19 @@ const Navbar = () => {
   );
 
   const handleSearch = () => {
-    // Start searching
     setIsSearching(true);
   };
 
   return (
     <div className="navbar">
       <div className="right">
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <span>Squad Up</span>
+        <Link className="font" to="/" style={{ textDecoration: "none" }}>
+          <span>Squad Up</span> 
         </Link>
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <Link className="p1" to="/" style={{ textDecoration: "none" }}>
           <HomeOutlinedIcon />
         </Link>
-        {darkMode ? (
-          <WbSunnyOutlinedIcon onClick={toggle} />
-        ) : (
-          <DarkModeOutlinedIcon onClick={toggle} />
-        )}
-        <Link to="/games" style={{ textDecoration: "none" }}>
+        <Link className="p2" to="/games" style={{ textDecoration: "none" }}>
           <GridViewOutlinedIcon />
         </Link>
       </div>

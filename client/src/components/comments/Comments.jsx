@@ -1,7 +1,10 @@
+// Comments.jsx
 import { useContext, useState, useEffect } from "react";
 import "./comments.scss";
 import { AuthContext } from "../../context/authContext";
 import moment from "moment";
+import axios from "axios";
+import { makeRequest } from "../../axios";
 
 const Comments = ({ postId }) => {
   const [desc, setDesc] = useState("");
@@ -14,12 +17,9 @@ const Comments = ({ postId }) => {
     const fetchComments = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`/api/comments?postId=${postId}`);
-        if (!response.ok) {
-          throw new Error("Something went wrong");
-        }
-        const data = await response.json();
-        setComments(data);
+        const response = await makeRequest.get(`/comments?postId=${postId}`);
+        console.log(response)
+        setComments(response.data);
         setIsLoading(false);
       } catch (err) {
         setError(err.message || "Something went wrong");
@@ -33,25 +33,24 @@ const Comments = ({ postId }) => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/comments", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ desc, postId }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Something went wrong");
-      }
+      const response = await makeRequest.post(
+        "/comments",
+        { desc, postId },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       // Clear the input field and refresh comments
       setDesc("");
-      const newComment = await response.json();
+      const newComment = response.data;
       setComments((prevComments) => [...prevComments, newComment]);
     } catch (err) {
       setError(err.message || "Something went wrong");
+      console.log(err)
     }
   };
 
@@ -77,7 +76,7 @@ const Comments = ({ postId }) => {
             <img src={`/upload/${comment.profilePic}`} alt="" />
             <div className="info">
               <span>{comment.name}</span>
-              <p>{comment.desc}</p>
+              <p>{comment.dsec}</p>
             </div>
             <span className="date">{moment(comment.createdAt).fromNow()}</span>
           </div>

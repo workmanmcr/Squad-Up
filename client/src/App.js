@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import Login from './pages/login/Login';
 import Games from './pages/games/Games';
+import GameDetails from './pages/games/GameDetails';
 import Register from './pages/register/Register';
 import Navbar from './components/navbar/Navbar';
 import LeftBar from './components/leftBar/LeftBar';
@@ -63,9 +64,11 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<Home />} />
-          <Route path="profile/:id" element={<Profile />} />
-          <Route path="games" element={<Games />} />
+                <Route index element={<Home />} />
+                <Route path="profile/:id" element={<Profile />} />
+                <Route path="games" element={<Games />} />
+                <Route path="games/:gameId" element={<GameDetails />} /> {/* Add element prop here */}
+              
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

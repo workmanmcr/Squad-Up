@@ -53,7 +53,7 @@ const LeftBar = () => {
           </div>
         </div>
         <div className="item">
-          <h3>Top 5 Favorited Games</h3>
+          <h3 className="neon2">Game</h3>
           {loading && <p>Loading...</p>}
           {error && <p>Error: {error}</p>}
           <div className="favorited-games">
@@ -62,7 +62,7 @@ const LeftBar = () => {
               favoritedGames.map((game) => (
                 <div key={game.id} className="favorited-game">
                   <Link to={`/games/${game.id}`}>
-                    <span className="game-name">{game.name}</span>
+                    <span className="neon">{game.name}</span>
                     <img src={game.background_image} alt={game.name} />
                   </Link>
                 </div>

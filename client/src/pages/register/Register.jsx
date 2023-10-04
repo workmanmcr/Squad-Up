@@ -34,12 +34,17 @@ const Register = () => {
         <div className="left">
           <p>
           </p>
-          <span>Do you have an account?</span>
+          <div className="p7">
+          <span className="neong">Do you have an account?</span>
+          </div>
+          <div className="p8">
           <Link to="/login">
             <button className="button">Login</button>
           </Link>
+          </div>
         </div>
         <div className="right">
+          <div className="p6">
           <h1></h1>
           <form>
             <input
@@ -67,8 +72,9 @@ const Register = () => {
               onChange={handleChange}
             />
             {err && err}
-            <button onClick={handleClick}>Register</button>
+            <button className="button" onClick={handleClick}>Register</button>
           </form>
+          </div>
         </div>
       </div>
     </div>

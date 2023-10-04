@@ -64,7 +64,7 @@ const RightBar = () => {
 
         {/* Display search results or suggested users */}
         <div className="item">
-          <div className='squad'><span>{searchQuery ? 'Search Results' : 'Your Squad'}</span>
+          <div className='neon2'><span>{searchQuery ? 'Search Results' : 'Your Squad'}</span>
           </div>
           {loading && <p>Loading...</p>}
           {error && <p>{error}</p>}
@@ -83,15 +83,14 @@ const RightBar = () => {
             ) : (
               users.map((user) => (
                 <div className="user" key={user.id}>
-                  
                     <div className='right'>
                     <Link to={`/profile/${user.id}`}>
-                      <span>{user.username}</span>
+                      <span className='neon'>{user.username}</span>
                       <img src={"/upload/" + user.profilePic} alt="" className='images'/>
                     </Link>
+
                     </div>
                   </div>
-                
               ))
             ))}
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import './games.scss';
 import { useFavoriteGames } from '../../context/FavoriteGamesContext';
 import { API_KEY } from '../../Api_key';
@@ -57,43 +58,43 @@ const GameList = () => {
   }, [searchQuery]);
 
   return (
-    <div className={`container ${darkMode ? 'dark-mode' : ''}`}>
-      <button onClick={toggle} className="dark-mode-toggle">
-        {darkMode ? 'Light Mode' : 'Dark Mode'}
-      </button>
+    <div className='body'>
+      <div className='neong'> 
+      <div className={`container ${darkMode ? 'dark-mode' : ''}`}>
+         {/* Search Bar */}
+         <input
+            type="text"
+            placeholder="Search games..."
+            value={searchQuery}
+            onChange={handleSearch}
+          />
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <ul>
+            {games.map((game) => (
+              <li key={game.id}>
+                <h3>{game.name}</h3>
+                <p>Released: {game.released}</p>
+                <p>Rating: {game.rating}</p>
 
-      <input
-        type="text"
-        placeholder="Search games..."
-        value={searchQuery}
-        onChange={handleSearch}
-        onClick={(e) => e.stopPropagation()}
-      />
+                <Link to={`/games/${game.id}`}>
+                  <img
+                    src={game.background_image}
+                    alt={game.name}
+                    style={{ maxWidth: '200px', cursor: 'pointer' }}
+                  />
+                </Link>
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {games.map((game) => (
-            <li key={game.id}>
-              <h3>{game.name}</h3>
-              <p>Released: {game.released}</p>
-              <p>Rating: {game.rating}</p>
-
-              <img
-                src={game.background_image}
-                alt={game.name}
-                style={{ maxWidth: '200px', cursor: 'pointer' }}
-                onClick={() => handleFavorite(game.id)}
-              />
-
-              <button onClick={() => handleFavorite(game.id)}>
-                {favoriteGames.includes(game.id) ? 'Remove from Favorites' : 'Add to Favorites'}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+                <button className='neong' onClick={() => handleFavorite(game.id)}>
+                  {favoriteGames.includes(game.id) ? 'Remove from Favorites' : 'Add to Favorites'}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      </div>
     </div>
   );
 };

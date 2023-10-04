@@ -14,10 +14,34 @@
     background-position: top;
     color:themed("textColor");
     z-index: 999;
-  
+    
+    .p1{
+position: relative;
+left:200px;
+    }
+    .p2{
+      position: relative;
+      left:200px;
+          }
+
+.font{
+  font-size: medium;
+}
+
     .images{
       max-height: 100px;
         max-width: 200px;
         border-radius: 75px;
          border-radius: 50%; 
     }}
+  
+    .button {
+      background-color: #4CAF50; /* Green */
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+    }

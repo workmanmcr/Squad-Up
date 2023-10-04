@@ -62,14 +62,14 @@ const Share = () => {
       setTaggedUsers(prevUsers => [...prevUsers, selectedUser]);
     }
   };
-
+console.log(currentUser)
   return (
     <div className="share">
       <div className="container">
         <div className="top">
           <div className="left">
             <img src={"/upload/" + currentUser.profilePic} alt="" className="images"/>
-            <input
+            <input className="neon3"
               type="text"
               placeholder={`share with the squad`}
               onChange={(e) => setDesc(e.target.value)}
@@ -93,13 +93,15 @@ const Share = () => {
             />
             <label htmlFor="file">
               <div className="item">
+                <div className="">
                 <img src={Image} alt="" />
-                <span className="button">Add Image</span>
+                <span className="neon">Add Image</span>
+                </div>
               </div>
-            </label>
+            </label> 
           </div>
           <div className="right">
-            <button onClick={handleClick}>Post</button>
+            <button className="neon2" onClick={handleClick}>Post</button>
           </div>
         </div>
       </div>

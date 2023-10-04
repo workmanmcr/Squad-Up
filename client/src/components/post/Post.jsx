@@ -68,13 +68,13 @@ const Post = ({ post }) => {
           <div className="userInfo">
             <img src={"/upload/" + post.profilePic} alt="" />
             <div className="details">
-              <Link
+              <Link className="neon2"
                 to={`/profile/${post.userId}`}
-                style={{ textDecoration: "none", color: "inherit" }}
+                style={{ textDecoration: "none" }}
               >
                 <span className="name">{post.name}</span>
               </Link>
-              <span className="date">{moment(post.createdAt).fromNow()}</span>
+              <span className="neon2">{moment(post.createdAt).fromNow()}</span>
             </div>
           </div>
           <MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)} />
@@ -83,27 +83,11 @@ const Post = ({ post }) => {
           )}
         </div>
         <div className="content">
-          <p>{post.desc}</p>
+          <p className="neon1">{post.desc}</p>
           <img src={"/upload/" + post.img} alt="" />
         </div>
-        <div className="taggedUsers">
-          {post.taggedUsers && post.taggedUsers.length > 0 && (
-            <div className="item">
-              <span>Tagged users:</span>
-              {post.taggedUsers.map((taggedUser) => (
-                <Link
-                  key={taggedUser.id}
-                  to={`/profile/${taggedUser.id}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <span>{taggedUser.name}</span>
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
         <div className="info">
-          <div className="item">
+          <div className="neon">
             {isLoading ? (
               "loading"
             ) : data.includes(currentUser.id) ? (
@@ -114,15 +98,11 @@ const Post = ({ post }) => {
             ) : (
               <FavoriteBorderOutlinedIcon onClick={handleLike} />
             )}
-            {data?.length} Likes
+            {data?.length} Likes 
           </div>
-          <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
+          <div className="neon" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
             See Comments
-          </div>
-          <div className="item">
-            <ShareOutlinedIcon />
-            Share
           </div>
         </div>
         {commentOpen && <Comments postId={post.id} />}

@@ -1,5 +1,25 @@
 // games.scss
+@import "../../style.scss";
 
+.body{
+  @include themify($themes) {
+    padding: 20px 70px;
+    background:url("/assets/logo2.0.png");
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+    @include mobile {
+      padding: 10px;
+    }
+
+    @include tablet{
+      padding: 20px;
+    }
+  }
+ }
 .container {
   max-width: 1200px; // Adjust as needed
   margin: 0 auto;
@@ -33,4 +53,65 @@
       }
     }
   }
+}
+.neong {
+  color: #ffffff;
+  text-shadow:
+    0 0 5px #ddb8eb,
+    0 0 10px #ddb8eb,
+    0 0 20px #ddb8eb,
+    0 0 40px #ddb8eb,
+    0 0 80px #Bc13fe
+,
+    0 0 90px #Bc13fe
+,
+    0 0 100px #Bc13fe
+,
+    0 0 150px #Bc13fe
+;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* general styling */
+:root {
+  font-size: large;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+
+h1 {
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+}
+.button {
+  background-color: transparent; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+
 }

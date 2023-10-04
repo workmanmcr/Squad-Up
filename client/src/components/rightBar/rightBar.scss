@@ -24,7 +24,7 @@ align-items: center;
 a {
 position: relative;
 display: inline-block;
-width: 180px;
+width: 100px;
 padding: 10px 25px;
 margin: 10px 0;
 color: lime;
@@ -125,3 +125,40 @@ span {
 }
 }
 }
+.neon {
+  color: #ffffff;
+  text-shadow:
+    0 0 5px #ddb8eb,
+    0 0 10px #ddb8eb,
+    0 0 20px #ddb8eb,
+    0 0 40px #ddb8eb,
+    0 0 80px #Bc13fe
+,
+    0 0 90px #Bc13fe
+,
+    0 0 100px #Bc13fe
+,
+    0 0 150px #Bc13fe
+;
+}
+.neon2 {
+  color: #ffffff;
+  text-shadow:
+    0 0 5px #ddb8eb,
+    0 0 10px #ddb8eb,
+    0 0 20px #ddb8eb,
+    0 0 40px #ddb8eb,
+    0 0 80px #Bc13fe
+,
+    0 0 90px #Bc13fe
+,
+    0 0 100px #Bc13fe
+,
+    0 0 150px #Bc13fe
+;
+position: relative;
+left: 10px;
+}
+
+
+
