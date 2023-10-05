@@ -75,8 +75,8 @@ const Comments = ({ postId }) => {
           <div className="comment" key={comment.id}>
             <img src={`/upload/${comment.profilePic}`} alt="" />
             <div className="info">
-              <span>{comment.name}</span>
-              <p>{comment.dsec}</p>
+              <span className="neong">{comment.name}</span>
+              <p className="neong">{comment.dsec}</p>
             </div>
             <span className="date">{moment(comment.createdAt).fromNow()}</span>
           </div>
